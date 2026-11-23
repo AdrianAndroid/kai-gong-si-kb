@@ -82,3 +82,19 @@ $KB/.venv/bin/python $KB/bin/transcribe.py status # 看进度
   - `【小辉】自己动手注册公司资料包/3-给⾃⼰的公司起⼀个好名字.pdf` 文件本身不是 PDF（加密/损坏数据，10.8MB），无法解析；
   - 其余 151 份全部入库。
 - 检索是"证据召回"，最终结论由模型阅读证据后给出；不做税务筹划的法律意见。
+
+## 压缩版课程视频（已入库）
+
+原始 121 集 **5.8GB**，用 `kb/bin/compress_videos.py` 压成 **1.16GB** 一并入库，单文件最大 42.5MB（GitHub 100MB 硬限内）。
+
+- 普通集：1280 宽 / fps 24 / H.264 crf 31，约为原体积 40%
+- 原 >100MB 的超大集：960 宽 / fps 15 / crf 34 + 码率上限，最狠压到原体积 7%（478MB → 40MB）
+- 位置：`kb/media/compressed/<原相对路径>`
+- 可续跑：`python kb/bin/compress_videos.py --jobs 4`；单集试压加 `--only 关键字`
+- 原始素材（`7小辉-教你开公司/`、`88个…合集/`）不走 Git，`.gitignore` 里用锚定路径挡住，注意别改成不带前导 `/` 的写法，否则会连带排掉 `kb/media` 下的同名目录
+
+> 压缩是有损的：讲师的 PPT 小字在 960 宽版本上会略微糊，需要看原始清晰度时请用本机原片。
+
+## 仓库
+
+https://github.com/AdrianAndroid/kai-gong-si-kb
