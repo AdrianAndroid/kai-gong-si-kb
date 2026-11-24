@@ -1,0 +1,57 @@
+site_name: 开公司 · 新手创业知识库
+site_description: 把开公司这件事拆成 9 个模块，讲清楚每个决策该怎么做
+site_url: https://adrianandroid.github.io/kai-gong-si-kb/
+repo_url: https://github.com/AdrianAndroid/kai-gong-si-kb
+repo_name: AdrianAndroid/kai-gong-si-kb
+
+theme:
+  name: material
+  language: zh
+  features:
+    - navigation.tabs
+    - navigation.top
+    - navigation.sections
+    - search.highlight
+    - search.suggest
+    - content.code.copy
+  palette:
+    - scheme: default
+      primary: indigo
+      toggle:
+        icon: material/brightness-7
+        name: 切换到深色模式
+    - scheme: slate
+      primary: indigo
+      toggle:
+        icon: material/brightness-4
+        name: 切换到浅色模式
+
+plugins:
+  - search:
+      lang: zh
+
+markdown_extensions:
+  - tables
+  - admonition
+  - pymdownx.superfences
+  - pymdownx.details
+  - toc:
+      permalink: true
+
+nav:
+  - 首页: index.md
+  - 新手路线: 00-新手路线.md
+  - 01 注册登记: 01-注册登记/index.md
+  - 02 财务合规: 02-财务合规/index.md
+  - 03 股权分配: 03-股权分配/index.md
+  - 04 人力管理: 04-人力管理/index.md
+  - 05 知识产权: 05-知识产权/index.md
+  - 06 创业融资: 06-创业融资/index.md
+  - 07 风险意识: 07-风险意识/index.md
+  - 08 变更与注销: 08-变更与注销/index.md
+  - 09 ICP备案与上线: 09-ICP备案与上线/index.md
+  - 清单:
+      - 注册材料清单: checklists/注册公司材料清单.md
+      - 税务日历: checklists/税务日历.md
+      - 用工合规自查: checklists/用工合规自查.md
+  - 模板索引: templates/index.md
