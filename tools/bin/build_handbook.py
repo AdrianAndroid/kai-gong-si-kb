@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """build_handbook.py — 从 docs/ 生成直读版 handbook/。
 
-用法:  python3 tools/bin/build_handbook.py [--root /Volumes/wd/开公司]
+用法:  python3 tools/bin/build_handbook.py [--root 仓库根目录]
 产物:  handbook/00-序与使用说明.md … handbook/10-附录-清单与模板.md
        handbook/开公司完全手册.md  (单文件)
        handbook/开公司完全手册.txt (纯文本)
@@ -186,7 +186,7 @@ def to_plain_text(text: str) -> str:
 
 def main():
     parser = argparse.ArgumentParser(description="从 docs/ 生成 handbook/")
-    parser.add_argument("--root", default="/Volumes/wd/开公司", help="仓库根目录")
+    parser.add_argument("--root", default=str(Path(__file__).resolve().parent.parent.parent), help="仓库根目录")
     args = parser.parse_args()
     root = Path(args.root)
     docs_dir = root / "docs"
