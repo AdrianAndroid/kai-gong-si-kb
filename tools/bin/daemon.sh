@@ -22,13 +22,13 @@ for i in $(seq 1 40); do
   echo "[daemon] 轮次 $i：已完成 $done_n / $total"
   if [ "$done_n" -ge "$total" ]; then
     echo "[daemon] 全部完成，重建索引"
-    $PY bin/build_chunks.py
-    $PY bin/transcribe.py notes | tail -1
-    $PY bin/build_index.py | grep -v jieba | tail -3
+    "$PY" "$BIN/build_chunks.py"
+    "$PY" "$BIN/transcribe.py" notes | tail -1
+    "$PY" "$BIN/build_index.py" | grep -v jieba | tail -3
     echo "[daemon] 结束"
     exit 0
   fi
-  $PY -u bin/transcribe.py asr --minutes 40 \
+  "$PY" -u "$BIN/transcribe.py" asr --minutes 40 \
       --first "老板必听财税课,创业融资必修课,ICP备案,人事合规" >> "$KB/logs/asr_run_daemon.log" 2>&1
   sleep 60
 done

@@ -11,7 +11,7 @@
 产物：
   kb/data/asr/<key>.json      ASR 原始结果
   kb/data/ocr/<key>.json      OCR 原始结果
-  kb/notes/<课程>/<集名>.md   人可读笔记
+  transcripts/<课程>/<集名>.md   人可读笔记
 状态：kb/logs/transcribe_state.json（断点续跑）
 """
 import os, sys, json, time, subprocess, hashlib, threading, queue
@@ -24,7 +24,17 @@ ASR_DIR = DATA / 'asr'
 OCR_DIR = DATA / 'ocr'
 AUDIO_DIR = DATA / 'audio'
 SEG_DIR = DATA / 'segs'
-NOTES = KB / 'notes'
+NOTES = ROOT / 'transcripts'
+COURSE_MAP = {
+    '1、小辉开公司必备知识': '01-小辉开公司必备知识',
+    '2、小辉科学分钱：老板必修的薪酬与股权课': '02-科学分钱-薪酬与股权',
+    '3、小辉注册商标': '03-注册商标',
+    '4、小辉自己动手注册公司': '04-自己动手注册公司',
+    '5、小辉教你开公司-创业融资必修课': '05-创业融资必修课',
+    '6、小辉教你开公司-老板必听财税课': '06-老板必听财税课',
+    '7、小辉教你开公司-人事合规文件模板': '07-人事合规文件模板',
+    '8、小辉教你开公司-自己动手ICP备案': '08-自己动手ICP备案',
+}
 STATE_F = KB / 'logs' / 'transcribe_state.json'
 SEG_SEC = 540          # 9 分钟切片（OCR 上限 10 分钟，留余量）
 OCR_MAX_SEC = 600
@@ -460,7 +470,7 @@ def main():
 
     if mode == 'notes':
         import importlib.util
-        spec = importlib.util.spec_from_file_location('v2m', KB / 'bin' / 'video2md.py')
+        spec = importlib.util.spec_from_file_location('v2m', ROOT / 'tools' / 'bin' / 'video2md.py')
         v2m = importlib.util.module_from_spec(spec); spec.loader.exec_module(v2m)
         n = 0
         for p in vids:
@@ -470,7 +480,7 @@ def main():
                 continue
             rel = p.relative_to(ROOT)
             course = rel.parts[1] if len(rel.parts) > 2 else rel.parts[0]
-            outp = NOTES / course.replace('/', '_')
+            outp = NOTES / COURSE_MAP.get(course, course.replace('/', '_'))
             outp.mkdir(parents=True, exist_ok=True)
             md = outp / (p.stem + '.md')
             try:
